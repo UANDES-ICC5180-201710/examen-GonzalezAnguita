@@ -11,8 +11,7 @@
 </p>
 
 <p>
-  <strong>Image url:</strong>
-  <%= @game.image_url %>
+  <img class="game-cover" src="<%= @game.image_url %>">
 </p>
 
 <% if user_signed_in? %>

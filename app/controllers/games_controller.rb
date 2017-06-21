@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  before_action :can_edit_game, only: [:edit, :update]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :can_modify
+  before_action :has_staff_permission, only: [:edit, :update, :destroy]
   before_action :set_game, only: [:show, :edit, :update, :destroy, :user_purchased]
 
   # GET /games
@@ -81,14 +82,22 @@ class GamesController < ApplicationController
       @game = Game.find(params[:id])
     end
   
-    def can_edit_game
-      user = User.find(current_user.id)
-      
-      if user.is_staff
-        return
+    def can_modify
+      if current_user
+        user = User.find(current_user.id)
+        
+        if user.is_staff
+          @can_modify = true
+          return
+        end
       end
-      flash[:alert] = "User is not staff, can't edit"
-      redirect_to games_path
+    end
+  
+    def has_staff_permission
+      unless @can_modify
+        flash[:alert] = "User is not staff"
+        redirect_to games_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

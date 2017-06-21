@@ -19,13 +19,16 @@
         <td><%= game.title %></td>
         <td><%= game.description %></td>
         <td><%= link_to 'Show', game %></td>
+          <% if user_signed_in? and @can_modify%>
         <td><%= link_to 'Edit', edit_game_path(game) %></td>
         <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if user_signed_in? and @can_modify %>
 <%= link_to 'New Game', new_game_path %>
+<% end %>

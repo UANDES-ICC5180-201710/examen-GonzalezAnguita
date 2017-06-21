@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :users do
     get 'is_staff', on: :member
   end
-  resources :games
+  resources :games do
+    get 'user_purchased', on: :member
+  end
   
   root to: 'games#index'
 end

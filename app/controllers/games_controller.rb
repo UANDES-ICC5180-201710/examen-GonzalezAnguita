@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :can_edit_game, only: [:edit, :update]
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :user_purchased]
 
   # GET /games
   # GET /games.json
@@ -25,6 +25,14 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+  end
+  
+  def user_purchased
+    @game.purchase_game(params[:user_id])
+    
+    purchased = @game.user_purchased?(params[:user_id])
+    
+    render :json => {:purchased => purchased}
   end
 
   # POST /games

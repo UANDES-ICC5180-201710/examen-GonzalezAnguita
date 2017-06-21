@@ -15,5 +15,38 @@
   <%= @game.image_url %>
 </p>
 
+<% if user_signed_in? %>
+    <button class="btn btn-sm <% if @game.user_purchased?(current_user.id) %>btn-success <% else %>btn-primary<% end %>" onclick="purchase_button_clicked(<%= current_user.id %>, <%= @game.id %>)" id="purchase_button">
+        <% if @game.user_purchased?(current_user.id) %>Delete purchase <% else %>Purchase<% end %>
+    </button>
+<% end %>
+
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
+
+<script>
+    function purchase_button_clicked(user_id, game_id) {
+
+        $.ajax({
+            type:"GET",
+            url:"<%= user_purchased_game_path %>",
+            dataType:"json",
+            data: {user_id: user_id, id: game_id},
+            success: function(result){
+                reverse_like_button(result.purchased);
+            }
+        });
+    }
+
+    function reverse_like_button(purchased) {
+        var button = $('#purchase_button');
+        var button_class = 'btn btn-sm btn-primary';
+        var button_text = 'Purchase';
+        if (purchased) {
+            button_class = 'btn btn-sm btn-success';
+            button_text = 'Delete purchase';
+        }
+        button.attr('class', button_class);
+        button.html(button_text);
+    }
+</script>

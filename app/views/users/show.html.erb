@@ -1,21 +1,26 @@
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
+<div class="row">
+    <div class="col-lg-4">
+        <p>
+            <strong>First name:</strong>
+            <%= @user.first_name %>
+        </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
+        <p>
+            <strong>Last name:</strong>
+            <%= @user.last_name %>
+        </p>
 
-<p>
-  <strong>Is staff:</strong>
-  <%= @user.is_staff %>
-</p>
+        <p>
+            <strong>Is staff:</strong>
+            <%= @user.is_staff %>
+        </p>
 
-<% if @logged_user.is_staff %>
-    <%= link_to 'Is Staff', is_staff_user_path(@user)%>
-<% end %>
+        <% if @logged_user.is_staff %>
+            <%= link_to 'Is Staff', is_staff_user_path(@user)%> |
+        <% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+        <%= link_to 'Edit', edit_user_path(@user) %> |
+        <%= link_to 'Back', users_path %>
+    </div>
+</div>
+

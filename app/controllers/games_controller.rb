@@ -6,6 +6,10 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
+    if params[:search]
+      @games = Game.search(params[:search])
+      return
+    end
     @games = Game.all
   end
 

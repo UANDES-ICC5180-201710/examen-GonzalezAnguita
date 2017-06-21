@@ -27,12 +27,12 @@
                     </li>
 
                 </ul>
-                <!-- <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left">
                     <%= form_tag(games_path, :method => 'get', id: 'search-form') do %>
                         <%= text_field_tag :search, params[:search], placeholder: 'Search Game', class: 'form-control' %>
                         <%= submit_tag 'Search', :name => nil, class: 'btn btn-default' %>
                     <% end %>
-                </form> -->
+                </form>
             <% end %>
             <ul class="nav navbar-nav navbar-right">
                 <% if not signed_in? %>

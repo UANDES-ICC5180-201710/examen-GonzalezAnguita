@@ -12,4 +12,8 @@ class Game < ApplicationRecord
   validates :image_url, {
     presence: true
   }
+  
+  def self.search(query)
+    where('title like ?', "%#{query}%")
+  end
 end

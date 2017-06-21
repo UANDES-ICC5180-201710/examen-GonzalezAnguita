@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :can_modify
-  before_action :has_staff_permission, only: [:edit, :update, :destroy]
+  before_action :has_staff_permission, only: [:edit, :update, :destroy, :new]
   before_action :set_game, only: [:show, :edit, :update, :destroy, :user_purchased]
 
   # GET /games

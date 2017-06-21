@@ -1,5 +1,7 @@
 class Game < ApplicationRecord
   
+  has_many :purchases
+  
   validates :title, {
     presence: true,
     length: {minimum: 10, maximum: 30},

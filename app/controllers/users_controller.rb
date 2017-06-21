@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_logged_user
   before_action :set_user, only: [:show, :edit, :update, :destroy, :is_staff]
+  before_action :can_edit?, only: [:edit, :update]
 
   # GET /users
   # GET /users.json
@@ -72,7 +74,17 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+  
+    def set_logged_user
       @logged_user = User.find(current_user.id)
+    end
+  
+    def can_edit?
+      if !@logged_user.is_staff
+        flash[:alert] = 'Not authorized!'
+        redirect_to users_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

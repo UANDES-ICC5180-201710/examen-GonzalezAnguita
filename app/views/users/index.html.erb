@@ -17,7 +17,9 @@
         <td><%= user.last_name %></td>
         <td><%= user.is_staff %></td>
         <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <% if @logged_user.is_staff %>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <% end %>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :can_edit_game, only: [:edit, :update]
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
   # GET /games
@@ -66,6 +67,15 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
+    end
+  
+    def can_edit_game
+      user = User.find(current_user.id)
+      
+      if user.is_staff
+        return
+      end
+      redirect_to games_path
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

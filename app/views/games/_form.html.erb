@@ -1,32 +1,50 @@
-<%= form_for(game) do |f| %>
-  <% if game.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+<div class="row">
+    <div class="col-lg-6">
+        <%= form_for(game) do |f| %>
+          <% if game.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
 
-      <ul>
-      <% game.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+              <ul>
+              <% game.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :description %>
+            <%= f.text_area :description, class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :image_url %>
+            <%= f.text_field :image_url, id: 'image_field', class: 'form-control' %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit class: 'btn btn-md btn-success' %>
+          </div>
+        <% end %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+    <div class="col-lg-6">
+        <div id="image_preview_container"></div>
+    </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+</div>
+<script>
 
-  <div class="field">
-    <%= f.label :image_url %>
-    <%= f.text_field :image_url %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+    $('#image_field').on('input', function() {
+        // this == the element that fired the change event
+        var container = $('#image_preview_container');
+        container.empty();
+        container.prepend('<img class="game-cover" src="' + $('#image_field').val() + '"/>');
+    });
+</script>

@@ -87,6 +87,7 @@ class GamesController < ApplicationController
       if user.is_staff
         return
       end
+      flash[:alert] = "User is not staff, can't edit"
       redirect_to games_path
     end
 

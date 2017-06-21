@@ -15,5 +15,9 @@
   <%= @user.is_staff %>
 </p>
 
+<% if @logged_user.is_staff %>
+    <%= link_to 'Is Staff', is_staff_user_path(@user)%>
+<% end %>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
